@@ -1,0 +1,31 @@
+{% extends 'admin/main.html' %}
+
+{% load static %}
+
+    {% block styles %}
+<link rel="stylesheet" href="{% static 'admin/css/productDetails.css' %}">
+    {% endblock styles %}
+
+    {% block content %}
+
+        <div class="form-container">
+            <div class="title">
+                <h2>Product Form</h2>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                    {% for field in form %}
+
+                        <div class="input">
+                            <label>{{field.label_tag}}</label>
+                            {{field}}
+                        </div>
+
+                    {% endfor %}
+
+                <input type="submit" value="Add Product" class="btn-submit">
+            </form>
+        </div>
+
+    {% endblock content %}

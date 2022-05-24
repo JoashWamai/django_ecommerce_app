@@ -1,0 +1,41 @@
+
+{% load static %}
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Admin Panel </title>
+		<link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'store/fontAwesome/css/all.css' %}">
+		{% block styles %}
+		{% endblock styles %}
+	</head>
+    <body>
+		<div class="container">
+
+			{% include 'admin/navbar.html' %}
+
+			<div class="main">
+
+				{% include 'admin/searchbar.html' %}
+
+				{% block content %}
+
+				{% endblock content %}
+
+			</div>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+		{% block scripts %}
+
+		{% endblock scripts %}
+
+		{% load sweetify %}
+
+		{% sweetify %}
+
+    </body>
+</html>
+

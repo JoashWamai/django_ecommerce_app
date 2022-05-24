@@ -1,0 +1,105 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block title %} CHECKOUT {% endblock %}
+
+        {% block styles %}
+
+<link rel="stylesheet" href="{% static 'store/styles/checkout.css' %}">
+
+        {% endblock styles %}
+
+        {% block content %}
+
+<div class="checkoutform">
+
+        <div class="checkout-heading">
+                <h2>Checkout Form</h2>
+                <p>Fill in Your Shipping Information</p>
+        </div>
+        <div class="checkout-container">
+                 <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+
+                 <div class="form-fields">
+
+                         <div class="input">
+                                 <label>FirstName</label>
+                                <input type="text" required id="FirstName">
+                         </div>
+                      <div class="input">
+                                 <label>LastName</label>
+                                <input type="text" id="LastName"  required >
+                         </div>
+                      <div class="input">
+                                 <label>Telephone</label>
+                                <input type="tel"  id="Telephone" required>
+                         </div>
+                      <div class="input">
+                                 <label>Email</label>
+                                <input type="email"  id="Email" required>
+                         </div>
+                      <div class="input">
+                                 <label>County</label>
+                                <input type="text" required id="County">
+                         </div>
+                      <div class="input">
+                                 <label>SubCounty</label>
+                                <input type="text" required id="SubCounty">
+                         </div>
+                      <div class="input">
+                                 <label>Town</label>
+                                <input type="text" required id="Town">
+                         </div>
+
+                 </div>
+        </form>
+
+                <div class="Items">
+                        <table>
+                                <thead>
+                                <tr>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Image</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for item in orderItems %}
+
+                                        <tr>
+                                                <td>{{item.product.productName}}</td>
+                                                <td>{{item.orderQuantity}}</td>
+                                                <td>{{item.get_total}}</td>
+                                                <td><img class="img" src="{{item.product.productImage.url}}"></td>
+                                        </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                        </table>
+                </div>
+
+        </div>
+        <div class="checkout-summary">
+                <h3>Summary</h3>
+                <p>Total Items:<span>{{order.get_cart_items}}</span></p>
+                <p>Total Cost:<span>{{order.get_cart_total|floatformat:2}}</span></p>
+                <p>Discount:<span>0.00</span></p>
+                <p>Delivery:<span>0.00</span></p>
+                <p>Gross Total:{{order.get_cart_total|floatformat:2}}</p>
+                <h3>Choose Payment Platform</h3>
+                <div class="payment-options">
+                        <input type="radio" name="payment"><img src="{% static 'store/images/logo/logo-visa.jpg' %}">
+                        <input type="radio" name="payment"><img src="{% static 'store/images/logo/logo-paypal.jpg' %}">
+                        <input type="radio" name="payment"><img src="{% static 'store/images/logo/logo-mpesa.png' %}">
+                </div>
+                <a href="#" class="checkout-btn">Checkout</a>
+                <a href="{% url 'cart' %}" class="cart-btn">Back to Cart</a>
+        </div>
+</div>
+
+        {% endblock content %}

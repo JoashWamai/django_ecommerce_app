@@ -1,0 +1,57 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block title %} WISHLIST {% endblock %}
+
+{% block styles %}
+
+	<link rel="stylesheet" href="{% static 'store/styles/wishlist.css' %}">
+
+{% endblock%}
+
+{% block content %}
+
+		<div class="container">
+
+			{% if items %}
+
+				<div class="wishlist">
+					<div class="products">
+
+						{% for item in items %}
+
+						<div class="product">
+							<img src="{{item.product.productImage.url}}">
+							<div class="product-info">
+								<h3 class="product-name">{{item.product.productName}}</h3>
+								<h2 class="product-price">Unit Price: Ksh. {{item.product.newPrice|floatformat:2}}</h2>
+								<h2 class="product-price">Total Price: Ksh. {{item.get_total|floatformat:2}}</h2>
+								<p class="product-quantity">Qty:{{item.wishQuantity}}</p>
+								<button class="btn-cart" id="cart" data-product="{{item.product.id}}" data-quantity="{{item.wishQuantity}}">
+									<i class="fa fa-shopping-cart"></i>
+									<span>Cart</span>
+								</button>
+								<button class="btn-remove updatewish" data-product="{{item.product.id}}" data-action="remove">
+									<i class="fa fa-trash"></i>
+									<span>Remove</span>
+								</button>
+							</div>
+						</div>
+
+						{% endfor %}
+
+					</div>
+        		</div>
+
+			{% else %}
+
+				<div class="wl-text">
+				<h2>nothing added on the wishlist</h2>
+				<img src="{% static 'store/images/heart.png' %}">
+			</div>
+
+			{% endif %}
+		</div>
+
+{% endblock %}

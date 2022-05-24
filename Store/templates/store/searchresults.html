@@ -1,0 +1,84 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block styles %}
+
+	<link rel="stylesheet" href="{% static 'store/styles/style.css' %}">
+
+{% endblock%}
+
+{% block content %}
+
+	<div class="product-container">
+
+
+				{% if products %}
+
+						<h2>{{productcount}} Items Found</h2>
+
+					{% for product in products %}
+
+					<div class="product-box">
+						<div class="product-img">
+							<img src="{{product.productImage.url}}">
+
+							{% if request.user.is_authenticated %}
+
+								<ul class="action">
+								<li>
+									<a href="#" class="updatewish" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+									<span>Add to Wishlist</span>
+								</li>
+								<li>
+									<a href="#" class="updatecart" data-product="{{product.id}}" data-action="add">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+									<span>Add to Cart</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% else %}
+
+								<ul class="action">
+								<li>
+									<i class="fa fa-heart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<i class="fa fa-shopping-cart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% endif %}
+
+						</div>
+						<div class="product-details">
+							<a href="#" class="p-name">{{product.productName}}</a>
+							<span class="p-price">Ksh.{{product.newPrice}}</span>
+							<div class="ratings">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star grey"></i>
+								<i class="fa fa-star grey"></i>
+							</div>
+						</div>
+					</div>
+
+					{% endfor %}
+
+				{% endif %}
+
+			</div>
+
+{% endblock content %}

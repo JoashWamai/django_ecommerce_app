@@ -1,0 +1,304 @@
+	{% extends 'store/main.html' %}
+
+	{%	load static %}
+
+	{% block title %} {{product.productName.upper}} {% endblock %}
+
+	{% block styles %}
+
+	<link rel="stylesheet" href="{% static 'store/styles/product.css' %}">
+
+	{% endblock %}
+
+	{% block content %}
+		<!--PRODUCT CONTAINER-->
+			<div class="product-card-wrapper">
+				<div class="product-card">
+					<ul id="gallery">
+						<li data-thumb="{{product.productImage.url}}">
+						  <img src="{{product.productImage.url}}" />
+						</li>
+						<li data-thumb="{{product.productImage.url}}">
+						  <img src="{{product.productImage.url}}" />
+						</li>
+					  </ul>
+					<div class="product-content">
+						<h2 class="product-title">{{product.productName}}</h2>
+
+						{% if product.ratings %}
+
+						<div class="product-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-alt"></i>
+							<span>{{product.ratings}}</span>
+						</div>
+
+						{% else %}
+
+						<p>Not Rated Yet</p>
+
+						{% endif %}
+
+						<div class="product-price">
+							{% if product.oldPrice %}
+							<p class="old-price">Old Price: <span>Ksh. {{product.oldPrice}}</span></p>
+							<p class="new-price">New Price: <span>Ksh. {{product.newPrice}} (-{{discount}}%)</span></p>
+							{% else %}
+							<p class="new-price">Price: <span>Ksh.{{product.newPrice}}</span></p>
+							{% endif %}
+						</div>
+						<div class="product-details">
+							<h2>About This Product:</h2>
+							<p>{{product.description}}</p>
+							<ul>
+
+								{% if product.color is not None %}
+
+									<li>Colors:
+
+										{% for color in product.color.all %}
+
+										<span class="color {{color}}"></span>
+
+										{% endfor %}
+
+								</li>
+
+								{% else %}
+
+									 <li>Colors: N/A</li>
+
+								{% endif %}
+
+
+								{% if product.size is not None %}
+
+									<li>Sizes:
+
+										{% for size in product.size.all %}
+											<span class="size available"><p>{{size}}</p></span>
+										{% endfor %}
+								</li>
+
+								{% elif product.size is None  %}
+
+									<li>Sizes: N/A</li>
+
+								{% endif %}
+
+								{% if product.productQuantity is not 0 %}
+
+									<li>Available: <span>In Stock</span></li>
+
+								{% else %}
+
+									<li>Available: <span>Out of Stock</span></li>
+
+								{% endif %}
+
+
+								<li>Category:
+
+									{% for categoryname in categorynames %}
+
+										<span>{{categoryname}}</span>,
+
+									{% endfor %}
+
+								</li>
+							</ul>
+						</div>
+						<div class="purchase-info">
+
+							{% if product.productQuantity is not 0 and request.user.is_authenticated %}
+
+								<input type="number" min="1" max="{{product.productQuantity}}" value="1">
+								<a href="#" class="product-btn-cart updatecart" data-product="{{product.id}}" data-action="add">
+									Add to cart <i class="fa fa-shopping-cart"></i>
+								</a>
+								<a href="#" class="product-btn-wishlist updatewish" data-product="{{product.id}}" data-action="add">
+									<i class="fa fa-heart"></i> Add to wishlist
+								</a>
+
+							{% else %}
+
+								<a href="cart.html" class="product-btn-cart unavailable">
+									Add to cart <i class="fa fa-shopping-cart"></i>
+								</a>
+								<a href="wishlist.html" class="product-btn-wishlist unavailable">
+									<i class="fa fa-heart"></i> Add to wishlist
+								</a>
+
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- RELATED PRODUCTS-->
+
+			<div class="related-items">
+				<div class='product-heading'>
+					<h2>related items</h2>
+				</div>
+
+				<ul id="relatedProducts" class="cs-hidden">
+
+					{% for item in categories %}
+
+						{% if item != product %}
+
+						<li class="item">
+							<div class="product-box">
+								<div class="product-img">
+									<img src="{{item.productImage.url}}">
+
+									{% if request.user.is_authenticated %}
+
+										<ul class="action">
+								<li>
+									<a href="#" class="updatewish" data-product="{{item.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+									<span>Add to Wishlist</span>
+								</li>
+								<li>
+									<a href="#" class="updatecart" data-product="{{item.id}}" data-action="add">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+									<span>Add to Cart</span>
+								</li>
+								<li>
+									<a href="{% url 'product' item.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+									{% else %}
+
+										<ul class="action">
+								<li>
+									<i class="fa fa-heart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<i class="fa fa-shopping-cart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<a href="{% url 'product' item.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+									{% endif %}
+
+								</div>
+								<div class="product-details">
+									<a href="#" class="p-name">{{item.productName}}</a>
+									<span class="p-price">Ksh.{{item.newPrice}}</span>
+									<div class="ratings">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star grey"></i>
+										<i class="fa fa-star grey"></i>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						{% endif %}
+
+					{% endfor %}
+
+				</ul>
+			</div>
+			<div class="reviews">
+				<div class="review-heading">
+					<h2>Reviews</h2>
+				</div>
+				<div class="review-container">
+					<div class="customer-reviews">
+							<div id="slide">
+								{% if reviews %}
+
+									{% for review in reviews %}
+
+									<div class="card">
+										<div class="profile">
+											<div>
+												<h3>{{review.customer.customerName}}</h3>
+												<p>{{review.customer.email}}</p>
+												<div class="rating">
+													<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-half-alt"></i>
+												</div>
+											</div>
+										</div>
+										<p>
+											{{review.reviewText}}
+										</p>
+									</div>
+
+									{% endfor %}
+
+								{% else %}
+								<div class="card empty">
+									<h3>No Reviews Yet</h3>
+									<p>Be the First to review</p>
+								</div>
+
+								{% endif %}
+
+							</div>
+					</div>
+
+					{% if request.user.is_authenticated %}
+
+					<div class="review-box">
+						<div class="review-profile">
+							<div class="review-rating">
+								<a href="#"><i class="fa fa-star"></i></a>
+								<a href="#"><i class="fa fa-star"></i></a>
+								<a href="#"><i class="fa fa-star"></i></a>
+								<a href="#"><i class="fa fa-star"></i></a>
+								<a href="#"><i class="fa fa-star"></i></a>
+							</div>
+							<div class="user">
+								<div class="user-info">
+									<h2>{{request.user}}</h2>
+									<p>{{request.user.email}}</p>
+								</div>
+							</div>
+						</div>
+						<form method="post" action="{% url 'product' product.id %}">
+							{% csrf_token %}
+							{{form}}
+							<input type="submit" value="Submit" class="btn-submit">
+						</form>
+					</div>
+
+					{% else %}
+
+					<div class="review-box empty">
+						<h2>Login To Review</h2>
+						<div class="image">
+							<img src="{% static 'store/images/review.png' %}">
+						</div>
+					</div>
+
+					{% endif %}
+
+				</div>
+			</div>
+
+		{% endblock %}
+
+		{% block scripts %}
+    		<script src="{% static 'store/scripts/product.js' %}"></script>
+   		 {% endblock %}

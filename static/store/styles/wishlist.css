@@ -1,0 +1,148 @@
+
+	/****WISHLIST*****/
+
+.container
+{
+	width: 100%;
+	margin: 30 auto;
+}
+.wishlist
+{
+	display: flex;
+}
+.products
+{
+	display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.product
+{
+	display: flex;
+	min-width:500px;
+	width:45%;
+	height: 230px;
+	overflow: hidden;
+	border: 1px solid #939393;
+	margin: 10px;
+	border-radius: 10px;
+}
+.product:hover
+{
+	border:none;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+	transform: scale(1.02);
+}
+.product img
+{
+	width:230px;
+	height: 230px;
+	object-fit: cover;
+}
+.product img:hover
+{
+	transform: scale(1.04);
+}
+.product-info
+{
+	padding: 20px;
+	width: 100%;
+	position: relative;
+}
+.product-name, .product-price, .product-offer
+{
+	margin-bottom: 20px;
+
+}
+.product-name
+{
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+.product-price, .product-offer
+{
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+.btn-remove
+{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	background: #ff0000;
+	color:#fff;
+	cursor: pointer;
+	padding: 5px 10px;
+	width:90px;
+	height: 40px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	outline: none;
+	border: none;
+
+}
+.btn-remove:hover
+{
+	background: #fff;
+	color:#ff0000;
+	border:1px solid #ff0000;
+}
+.btn-cart
+{
+	position:absolute;
+	bottom:10px;
+	right:105px;
+	background: #187de1;
+	color:#fff;
+	cursor: pointer;
+	padding: 5px 10px;
+	width:90px;
+	height: 40px;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+	outline: none;
+	border: none;
+}
+.btn-cart:hover
+{
+	background: #fff;
+	color:#187de1;
+	border:1px solid #187de1;
+}
+.btn-wishlist span, .btn-wishlist .fa,
+.btn-remove span, .btn-remove .fa
+{
+	font-size: 0.8rem;
+}
+.product-quantity
+{
+	margin-bottom: 20px;
+}
+.fa
+{
+	margin-right: 5px;
+}
+.wl-text
+{
+    height:75%;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+.wl-text h2
+{
+    font-size:24px;
+    font-weight:750;
+    letter-spacing:1px;
+    margin-bottom:20px;
+}
+.wl-text img
+{
+    width:300px;
+    height:300px;
+    object-fit:contain;
+}

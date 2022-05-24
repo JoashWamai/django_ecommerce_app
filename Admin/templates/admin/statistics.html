@@ -1,0 +1,23 @@
+{% extends 'admin/main.html' %}
+
+{% load static %}
+            {% block styles %}
+
+<link rel="stylesheet" href="{% static 'admin/css/stats.css' %}">
+
+            {% endblock styles %}
+
+            {% block content %}
+
+<div class="chart-container">
+    <canvas id="piechart"></canvas>
+</div>
+
+            {% endblock %}
+
+            {% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<script src="{% static 'admin/scripts/stats.js' %}"></script>
+
+		    {% endblock scripts %}

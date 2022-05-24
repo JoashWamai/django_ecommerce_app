@@ -1,0 +1,66 @@
+
+{% load static %}
+
+<html>
+	<meta name="viewport" content="initial-scale=1.0">
+	<head>
+		<title> HYDRO E-SHOP - {% block title %} {% endblock %} </title>
+
+        {% block styles %}
+
+        {% endblock %}
+
+		<link rel="stylesheet" href="{% static 'store/styles/navbar.css' %}">
+		<link rel="stylesheet" href="{% static 'store/fontAwesome/css/all.css' %}">
+<!--	<link rel="stylesheet" href="{% static 'store/jquery-ui-1.13.0.custom/jquery-ui.css' %}">-->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="{% static 'store/styles/lightslider.css' %}">
+		<link rel="stylesheet" href="{% static 'store/styles/footer.css' %}">
+
+		<script>
+			function getCookie(name) {
+				let cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					const cookies = document.cookie.split(';');
+					for (let i = 0; i < cookies.length; i++) {
+						const cookie = cookies[i].trim();
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) === (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			const csrftoken = getCookie('csrftoken');
+		</script>
+	</head>
+	<body>
+
+    {% include 'store/navbar.html' %}
+
+    {% block content %}
+
+
+    {% endblock %}
+
+    {% include 'store/footer.html' %}
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="{% static 'store/scripts/jquery-3.2.1.min.js' %}"></script>
+<!--	<script src="{% static 'store/jquery-ui-1.13.0.custom/jquery-ui.js' %}"></script>-->
+		<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+		<script src="{% static 'store/scripts/lightslider.js' %}"></script>
+		<script src="{% static 'store/scripts/flyto.min.js' %}"></script>
+		<script src="{% static 'store/scripts/script.js' %}"></script>
+
+    {% block scripts %}
+
+    {% endblock %}
+
+	{% load sweetify %}
+
+	{% sweetify %}
+
+	</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'admin/main.html' %}
+
+{% load static %}
+
+        {% block styles %}
+
+    <link rel="stylesheet" href="{% static 'admin/css/product.css' %}">
+
+        {% endblock styles %}
+
+    {% block content %}
+
+        <div class="card-products">
+            <h2>Products Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                         <th>Name</th>
+                         <th>Price</th>
+                         <th>Quantity</th>
+                         <th></th>
+                         <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for product in products %}
+
+                    <tr>
+                         <td>{{product.productName}}</td>
+                         <td>{{product.newPrice|floatformat:2}}</td>
+                         <td>{{product.productQuantity}}</td>
+                        <td>
+                            <a href="{% url 'updateproduct' product.id %}" class="update btn">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                             <a href="#" class="delete btn">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    {% endblock content %}
+
+    {% block scripts %}
+
+<script src="{% static 'admin/scripts/product.js' %}"></script>
+
+    {% endblock scripts %}

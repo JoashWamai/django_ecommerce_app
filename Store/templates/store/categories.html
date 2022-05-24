@@ -1,0 +1,154 @@
+		{% extends 'store/main.html' %}
+
+		{% load static %}
+
+		{% block title %} {{selectedcat.categoryName.upper}} {% endblock %}
+
+		{% block styles %}
+
+		<link rel="stylesheet" href="{% static 'store/styles/style.css' %}">
+		<link rel="stylesheet" href="{% static 'store/styles/category.css' %}">
+
+		{% endblock %}
+
+		{% block content %}
+
+		<!-----CATEGORY CONTAINER----->
+		<section>
+			<div class="categories-container">
+				<div class="left-panel">
+					<div class="category-list">
+						<h2 class="category-heading">Category</h2>
+						<ul>
+
+							{% for category in categorylist %}
+
+									{% if category == selectedcat %}
+
+										<li class="active"><a href="{% url 'category-detail' category.id %}">{{category.categoryName}}<span>({{category.product_set.count}})</span></a></li>
+
+									{% else %}
+
+										<li><a href="{% url 'category-detail' category.id %}">{{category.categoryName}}<span>({{category.product_set.count}})</span></a></li>
+
+									{% endif %}
+
+							{% endfor %}
+
+						</ul>
+					</div>
+					<div class="brand-list">
+						<h2 class="category-brand-heading">Brands</h2>
+						<ul>
+
+							{% for brand in brands %}
+
+							<li><a href="#">{{brand.brandName}} <span>({{brand.product_set.count}})</span></a></li>
+
+							{% endfor %}
+
+						</ul>
+					</div>
+
+				</div>
+				<div class="right-panel">
+						<div class="product-category-container">
+
+								{% for product in pages %}
+
+								<div class="p-category-box">
+									<div class="p-category-img">
+										<img src="{{product.productImage.url}}">
+
+										{% if request.user.is_authenticated %}
+
+											<ul class="action">
+								<li>
+									<a href="#" class="updatewish" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+									<span>Add to Wishlist</span>
+								</li>
+								<li>
+									<a href="#" class="updatecart" data-product="{{product.id}}" data-action="add">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+									<span>Add to Cart</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+										{% else %}
+
+											<ul class="action">
+								<li>
+									<i class="fa fa-heart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<i class="fa fa-shopping-cart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+										{% endif %}
+
+									</div>
+									<div class="category-p-details">
+										<a href="#" class="p-name">{{product.productName}}</a>
+										<span class="p-price">{{product.newPrice}}</span>
+										<div class="ratings">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-half-alt"></i>
+											<i class="fa fa-star grey"></i>
+										</div>
+									</div>
+								</div>
+
+								{% endfor %}
+
+						</div>
+					<div class="pagination">
+							<ul>
+
+								{% if pages.has_previous %}
+
+									<li>
+										<a href="?page={{ pages.previous_page_number }}">
+											<i class="fa fa-arrow-left"></i>
+										</a>
+									</li>
+
+								{% endif %}
+
+								{% for  pagenumber in pages.paginator.page_range %}
+
+								<li><a href="?page={{pagenumber}}">{{pagenumber}}</a></li>
+
+								{% endfor %}
+
+
+								{% if pages.has_next %}
+
+									<li>
+										<a href="?page={{ pages.next_page_number }}">
+											<i class="fa fa-arrow-right"></i>
+										</a>
+									</li>
+
+								{% endif %}
+
+							</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{% endblock %}

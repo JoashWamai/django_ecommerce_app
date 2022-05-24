@@ -1,0 +1,64 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% load socialaccount %}
+
+{% providers_media_js %}
+
+{% block title %} LOGIN  {% endblock %}
+
+        {% block styles %}
+
+<link rel="stylesheet" href="{% static 'store/styles/style.css' %}">
+<link rel="stylesheet" href="{% static 'store/styles/login.css' %}">
+
+        {% endblock %}
+
+        {% block content %}
+
+<div class="container">
+        <div class="form-container sign-up-form">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <h1>Create New Account</h1>
+                <div class="input-form">
+                    <i class="fa fa-user"></i>
+                    {{form.username}}
+                </div>
+                <div class="input-form">
+                    <i class="fa fa-envelope"></i>
+                    {{form.email}}
+                </div>
+                <div class="input-form">
+                    <i class="fa fa-lock"></i>
+                    {{form.password1}}
+                </div>
+                <div class="input-form">
+                    <i class="fa fa-lock"></i>
+                    {{form.password2}}
+                </div>
+                <input type="submit" class="btn-submit" value='Sign Up'>
+            </form>
+
+        </div>
+        <div class="form-container sign-in-form">
+            <form method="post"  action="{% url 'login' %}">
+                {% csrf_token %}
+                <h1>Log In</h1>
+                <div class="input-form">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="Username" name="username">
+                </div>
+                <div class="input-form">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password">
+                </div>
+                <input type="submit" class="btn-submit" value='Log In'>
+            </form>
+             <a href="{% provider_login_url 'google'%}" class="google-login">Login with Google</a>
+            <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="facebook-login">Login with Facebook</a>
+        </div>
+    </div>
+
+        {% endblock %}

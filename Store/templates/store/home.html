@@ -1,0 +1,281 @@
+
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block title %} HOME {% endblock %}
+
+	{% block styles %}
+
+
+		<link rel="stylesheet" href="{% static 'store/styles/style.css' %}">
+
+
+	{% endblock %}
+
+
+
+	{% block content %}
+
+		<ul id="adaptive">
+			<li class="item-a">
+				<div class="full-slider-box">
+					<div class="slider-image">
+						<img src="{% static 'store/images/Sales/Sale2.jpg' %}">
+					</div>
+					<div class="slider-text-container">
+						<h3>Limited Offer</h3>
+						<strong>Get <span>20% off</span> on all<br/> our Versace dresses</strong>
+						<a href="#" class="f-slider-btn">Shop Now</a>
+					</div>
+				</div>
+			</li>
+			<li class="item-a">
+				<div class="full-slider-box">
+					<div class="slider-image">
+						<img src="{% static 'store/images/Sales//Sale3.jpg' %}">
+					</div>
+					<div class="slider-text-container">
+						<h3>Limited Offer</h3>
+						<strong>Get <span>35% off</span> on all<br/> our gucci bags</strong>
+						<a href="#" class="f-slider-btn">Shop Now</a>
+					</div>
+				</div>
+			</li>
+			<li class="item-a">
+				<div class="full-slider-box">
+					<div class="slider-image">
+						<img src="{% static 'store/images/Sales//Sale4.jpg' %}">
+					</div>
+					<div class="slider-text-container">
+						<h3>Limited Offer</h3>
+						<strong>Get <span>12% off</span> on all<br/> our Louis Vuitton tops</strong>
+						<a href="#" class="f-slider-btn">Shop Now</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+            <!-- CATEGORIES-->
+
+		<div class="feature-heading">
+			<h2>Featured Categories</h2>
+			<p>We have a wide range of designer goods</p>
+		</div>
+
+		<ul id="autoWidth" class="cs-hidden">
+
+			{% for category in categories %}
+
+			<li class="item">
+				<div class="feature-box">
+					<img src="{{category.categoryImage.url}}">
+					<div class="feature-desciption">
+						<p>{{category.categoryDescription}}</p>
+						<a href="{% url 'category-detail' category.id %}">SHOP NOW</a>
+					</div>
+				</div>
+				<span><a href="{% url 'category-detail' category.id %}">{{category.categoryName}}</a> </span>
+			</li>
+
+			{% endfor %}
+
+		</ul>
+
+
+             <!--x- CATEGORIES -x-->
+
+			<!-- NEW ARRIVALS -->
+
+		<section class="new-arrivals">
+			<div class="arrival-heading">
+				<h2>New Arrivals</h2>
+				<p>The latest trends in the market</p>
+			</div>
+			<div class="product-container">
+
+				{% if newproducts %}
+
+					{% for product in newproducts %}
+
+					<div class="product-box">
+						<div class="product-img">
+							<img src="{{product.productImage.url}}">
+
+							{% if request.user.is_authenticated %}
+
+								<ul class="action">
+								<li>
+									<a href="#" class="updatewish" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+									<span>Add to Wishlist</span>
+								</li>
+								<li>
+									<a href="#" class="updatecart" data-product="{{product.id}}" data-action="add">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+									<span>Add to Cart</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% else %}
+
+								<ul class="action">
+								<li>
+									<i class="fa fa-heart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<i class="fa fa-shopping-cart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% endif %}
+
+						</div>
+						<div class="product-details">
+							<a href="#" class="p-name">{{product.productName}}</a>
+							<span class="p-price">Ksh.{{product.newPrice|floatformat:2}}</span>
+							<div class="ratings">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star grey"></i>
+								<i class="fa fa-star grey"></i>
+							</div>
+						</div>
+					</div>
+
+					{% endfor %}
+
+				{% endif %}
+
+			</div>
+		</section>
+
+			<!--x- NEW ARRIVALS -x-->
+
+			<!-- SALES -->
+
+		<section class="sale">
+			<div class="sales-heading">
+				<h2>Sales</h2>
+				<p>Get all our discounted products</p>
+			</div>
+			<ul id="autoWidth2" class="cs-hidden">
+
+				{% if saleproducts %}
+
+					{% for product in saleproducts %}
+
+					<li class="item">
+						<div class="sale-box">
+							<div class="sale-img">
+								<img src="{{product.productImage.url}}">
+
+								{% if request.user.is_authenticated %}
+
+								<ul class="action">
+								<li>
+									<a href="#" class="updatewish" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+									<span>Add to Wishlist</span>
+								</li>
+								<li>
+									<a href="#" class="updatecart" data-product="{{product.id}}" data-action="add">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+									<span>Add to Cart</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% else %}
+
+								<ul class="action">
+								<li>
+									<i class="fa fa-heart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<i class="fa fa-shopping-cart"></i>
+									<span>Login to add</span>
+								</li>
+								<li>
+									<a href="{% url 'product' product.id %}"><i class="fa fa-eye"></i></a>
+									<span>View Details</span>
+								</li>
+							</ul>
+
+							{% endif %}
+
+								<span class="sale-label">
+									<p>-{{product.discount}}%</p>
+								</span>
+							</div>
+							<div class="product-details">
+								<a href="#" class="p-name">{{product.productName}}</a>
+								<div class="product-pricing">
+									<p class="new-price">Ksh.{{product.newPrice|floatformat:2}}</p>
+									<p class="old-price">Ksh.{{product.oldPrice|floatformat:2}}</p>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					{% endfor %}
+
+				{% endif %}
+
+			</ul>
+		</section>
+
+			<!--x- SALES -x-->
+
+			<!-- BRANDS -->
+
+		<section class="brands">
+			<div class="brand-heading">
+				<h2>Our Brands</h2>
+				<p>We have all the leading brands in our stores</p>
+			</div>
+			<ul id="autoWidth3" class="cs-hidden" >
+				<li>
+					<img src="{% static 'store/images/Logo/logo-gucci.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-versace.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-nike.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-addidas.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-lv.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-prada.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-fendi.png' %}">
+				</li>
+				<li>
+					<img src="{% static 'store/images/Logo/logo-dg.png' %}">
+				</li>
+			</ul>
+		</section>
+
+			<!--x- BRANDS -x-->
+
+		{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'admin/main.html' %}
+
+{% load static %}
+
+	{% block content %}
+
+				<div class="card-box">
+					<div class="card">
+						<div>
+							<div class="number">{{allproducts}}</div>
+							<div class="cardName">Total Products</div>
+						</div>
+						<div class="iconBox">
+							<i class="fa fa-boxes"></i>
+						</div>
+					</div>
+					<div class="card">
+						<div>
+							<div class="number">{{allcustomers}}</div>
+							<div class="cardName">Total Customers</div>
+						</div>
+						<div class="iconBox">
+							<i class="fas fa-users"></i>
+						</div>
+					</div>
+					<div class="card">
+						<div>
+							<div class="number">{{allorders}}</div>
+							<div class="cardName">Total Orders</div>
+						</div>
+						<div class="iconBox">
+							<i class="fa fa-th-list"></i>
+						</div>
+					</div>
+				</div>
+				<div class="details">
+					<div class="recentOrders">
+						<div class="cardHeader">
+							<h2>Recent Orders</h2>
+							<a href="#" class="btn">View All</a>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<td>Product Name</td>
+									<td>Price</td>
+									<td>Customer</td>
+									<td>Date Ordered</td>
+								</tr>
+							</thead>
+							<tbody>
+
+							{% for order in orders %}
+
+								<tr>
+									<td>{{order.product.productName}}</td>
+									<td>{{order.product.newPrice}}</td>
+									<td>{{order.order.customer}}</td>
+									<td>{{order.dateAdded}}</td>
+								</tr>
+
+							{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+					<div class="recentCustomers">
+						<div class="searchbox">
+							<div class="search-icon"><i class="fa fa-search"></i></div>
+							<div class="input">
+								<input type="text" placeholder="Search Customers">
+								<span class="clear"><i class="fa fa-plus"></i></span>
+							</div>
+						</div>
+						<div class="cardHeader">
+							<h2>Recent Customers</h2>
+						</div>
+						<table>
+							<tbody>
+								{% for customer in customers %}
+									<tr>
+										<td>
+											<h4>
+												{{customer.customerName}}<br>
+											</h4>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+	{% endblock content %}
+
+	{% block scripts %}
+
+<script src="{% static 'admin/scripts/script.js' %}"></script>
+
+	{% endblock scripts %}

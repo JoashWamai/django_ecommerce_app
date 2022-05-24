@@ -1,0 +1,21 @@
+.chart-container
+{
+    width100%;
+    height:100vh;
+    background:#fff;
+    margin:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+#piechart
+{
+    width:500px !important;
+    height:500px !important;
+    background:#fff;
+    margin:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}

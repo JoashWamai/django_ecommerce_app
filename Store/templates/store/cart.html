@@ -1,0 +1,83 @@
+
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block title %} CART {% endblock %}
+
+{% block styles %}
+
+	<link rel="stylesheet" href="{% static 'store/styles/cart.css' %}">
+
+{% endblock%}
+
+{% block content %}
+
+	<div class="container">
+
+		{% if items %}
+
+			<div class="cart">
+				<div class="products">
+
+					{% for item in items %}
+
+						<div class="product">
+							<img src="{{item.product.productImage.url}}">
+							<div class="product-info">
+								<h3 class="product-name">{{item.product.productName}}</h3>
+								<h2 class="product-price">Unit Price: Ksh. {{item.product.newPrice|floatformat:2}}</h2>
+								<h2 class="product-price">Total Price: Ksh. {{item.get_total|floatformat:2}}</h2>
+								<p class="product-quantity">Qty: <input type="number" value="{{item.orderQuantity}}" min="0" name=""></p>
+								<button class="btn-wishlist" id="wish" data-product="{{item.product.id}}" data-quantity="{{item.orderQuantity}}">
+									<i class="fa fa-heart"></i>
+									<span>Wishlist</span>
+								</button>
+								<button class="btn-remove updatecart" data-product="{{item.product.id}}" data-action="remove">
+									<i class="fa fa-trash"></i>
+									<span>Remove</span>
+								</button>
+							</div>
+						</div>
+
+					{% endfor %}
+
+				</div>
+				<div class="cart-total">
+					<p>
+						<span>Item Numbers</span>
+						<span>{{order.get_cart_items}}</span>
+					</p>
+					<p>
+						<span>Tax</span>
+						<span>Ksh. 250</span>
+					</p>
+					<p>
+						<span>Delivery Fee</span>
+						<span>Free</span>
+					</p>
+					<p>
+						<span>Discount</span>
+						<span>Ksh. 600</span>
+					</p>
+					<p>
+						<span>Total Price</span>
+						<span>Ksh. {{order.get_cart_total|floatformat:2}}</span>
+					</p>
+					<p>
+						<a href="{% url 'checkout' %}">Proceed to Checkout</a>
+					</p>
+				</div>
+			</div>
+
+		{% else %}
+			<div class="cart-text">
+				<h2>You cart is currently empty</h2>
+				<img src="{% static 'store/images/shopping-cart.png' %}">
+			</div>
+
+		{% endif %}
+
+	</div>
+
+{% endblock %}

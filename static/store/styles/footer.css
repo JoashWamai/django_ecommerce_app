@@ -1,0 +1,80 @@
+footer
+{
+	background: linear-gradient(to right, #010101,#021d38 );
+	color:#fff;
+	height:60vh;
+	width: 100%;
+	position: relative;
+}
+.footer-row
+{
+	width:100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 50px 0px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+}
+.footer-col
+{
+	flex-basis: 25%;
+	padding: 10px 30px;
+}
+.footer-logo h3, .footer-col h3
+{
+	font-size:1rem !important;
+	color:#fff !important;
+	padding-bottom: 10px;
+}
+.footer-col ul li a
+{
+	font-size: 15px;
+	text-transform: capitalize;
+	padding: 10px 0;
+	color:#fff;
+}
+.footer-col p
+{
+    font-size:15px;
+    padding: 10px 0;
+    text-transform: capitalize;
+}
+.email-f
+{
+	color:#939393;
+	border-bottom: 1px solid #ccc;
+	width: fit-content;
+	margin-bottom: 5px;
+}
+.footer-col ul li
+{
+	padding: 10px 0 !important;
+}
+
+.footer-col ul li:hover a
+{
+	color:#187de1;
+}
+.footer-col  .fab
+{
+	font-size: 1rem;
+}
+.footer-col ul li a span
+{
+	padding-left: 10px;
+	font-size: 0.9rem;
+}
+.footer-col p.statement
+{
+	letter-spacing: 1.2px;
+	line-height:1.4;
+	text-transform:unset;
+}
+#email-f
+{
+	text-transform: lowercase;
+	font-size: 15px;
+}

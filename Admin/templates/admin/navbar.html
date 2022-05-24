@@ -1,0 +1,42 @@
+{% load static %}
+
+<div class="navigation">
+        <ul>
+            <li>
+                <span class="title"><h3>Haich E-shop Admin</h3></span>
+            </li>
+            <li>
+                <a href="{% url 'administrator' %}">
+                    <span class="icon"><i class="fa fa-tachometer-alt"></i></span>
+                    <span class="title"><h3>Dashboard</h3></span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'products' %}">
+                    <span class="icon"><i class="fa fa-boxes"></i></span>
+                    <span class="title"><h3>Products</h3></span>
+                </a>
+                <span class="icon" id="toggle"><i class="fa fa-caret-down"></i></span>
+                <ul class="submenu">
+                    <li>
+                        <a href="{% url 'addnewproduct' %}">
+                             <span class="icon"><i class="fa fa-plus-circle"></i></span>
+                             <span class="title"><h3>New Product</h3></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa fa-sliders-h"></i></span>
+                    <span class="title"><h3>Settings</h3></span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">
+                    <span class="icon"><i class="fa fa-sign-out-alt"></i></span>
+                    <span class="title"><h3>Log Out</h3></span>
+                </a>
+            </li>
+        </ul>
+    </div>
